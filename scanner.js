@@ -115,7 +115,7 @@ function showFeedback(type, title, photoUrl = null, name = null, course = null) 
             feedbackCard.classList.add('hidden');
             feedbackCard.classList.remove('flex');
             isScanning = true;
-            if (html5QrCode && html5QrCode.getState() === 2) {
+            if (html5QrCode && html5QrCode.getState() === 3) { // 3 = PAUSED
                 html5QrCode.resume();
             }
         }, 300);
