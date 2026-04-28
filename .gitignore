@@ -3,10 +3,9 @@
 .vscode/
 .idea/
 
-# Archivos temporales o de entorno (si alguna vez usas Node)
+# Archivos temporales o de entorno
 node_modules/
 .env
 
-# Scripts SQL de estructura (Opcional: puedes comentarlos si quieres que el schema y el mock_data NO se suban a GitHub)
-# schema.sql
-# mock_data.sql
+# Secretos y tokens
+token.txt

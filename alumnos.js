@@ -24,5 +24,29 @@ const DB_ALUMNOS = [
         nombre: "Anita Tijoux", 
         curso: "2° Medio A", 
         foto_url: "https://api.dicebear.com/7.x/avataaars/svg?seed=Anita&backgroundColor=d1d4f9" 
+    },
+    { 
+        rut: "19876543-2", 
+        nombre: "Carlos Pinto", 
+        curso: "2° Medio B", 
+        foto_url: "https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos&backgroundColor=e2f4b6" 
+    },
+    { 
+        rut: "15555555-5", 
+        nombre: "Daniela Vega", 
+        curso: "4° Medio B", 
+        foto_url: "https://api.dicebear.com/7.x/avataaars/svg?seed=Daniela&backgroundColor=f4b6e3" 
+    },
+    { 
+        rut: "16666666-6", 
+        nombre: "Alexis Sánchez", 
+        curso: "3° Medio A", 
+        foto_url: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alexis&backgroundColor=b6f4c3" 
+    },
+    { 
+        rut: "17777777-7", 
+        nombre: "Mon Laferte", 
+        curso: "1° Medio A", 
+        foto_url: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mon&backgroundColor=f4d3b6" 
     }
 ];
