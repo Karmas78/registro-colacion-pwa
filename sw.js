@@ -1,4 +1,4 @@
-const CACHE_NAME = 'colacion-v2'; // Actualizamos la versión de caché
+const CACHE_NAME = 'colacion-v3'; // Actualizamos la versión de caché para forzar la recarga
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -13,9 +13,10 @@ const ASSETS_TO_CACHE = [
 ];
 
 self.addEventListener('install', event => {
+    self.skipWaiting(); // Forzar actualización inmediata
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            console.log('Abriendo caché v2');
+            console.log('Abriendo caché v3');
             return cache.addAll(ASSETS_TO_CACHE);
         })
     );
@@ -36,14 +37,20 @@ self.addEventListener('activate', event => {
     );
 });
 
+// Estrategia Network-First: Siempre intentar obtener la última versión, si falla (offline), usar caché
 self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request)
+        fetch(event.request)
             .then(response => {
-                if (response) {
-                    return response; 
-                }
-                return fetch(event.request);
+                // Si hay internet, actualizamos la caché con la nueva versión
+                return caches.open(CACHE_NAME).then(cache => {
+                    cache.put(event.request, response.clone());
+                    return response;
+                });
+            })
+            .catch(() => {
+                // Si falla (estamos offline), servimos desde la caché
+                return caches.match(event.request);
             })
     );
 });

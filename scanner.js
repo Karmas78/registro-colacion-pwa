@@ -115,9 +115,6 @@ function showFeedback(type, title, photoUrl = null, name = null, course = null) 
             feedbackCard.classList.add('hidden');
             feedbackCard.classList.remove('flex');
             isScanning = true;
-            if (html5QrCode && html5QrCode.getState() === 3) { // 3 = PAUSED
-                html5QrCode.resume();
-            }
         }, 300);
     }, 3000);
 }
@@ -129,10 +126,6 @@ async function onScanSuccess(decodedText) {
     if (!isScanning) return;
     isScanning = false;
     
-    if (html5QrCode.getState() === 2) {
-        html5QrCode.pause(true);
-    }
-
     const rut = decodedText.trim();
     cameraOverlay.classList.remove('hidden');
     cameraOverlay.classList.add('flex');
