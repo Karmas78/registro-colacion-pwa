@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Registro Colación</title>
+    <meta name="theme-color" content="#1F2937">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- HTML5 QR Code -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col font-sans select-none overflow-hidden">
+    <header class="p-4 bg-gray-800 shadow-md flex justify-between items-center z-10">
+        <h1 class="text-xl font-bold">🍔 Colación</h1>
+        <div class="flex items-center gap-2 bg-blue-900 px-3 py-1 rounded-full border border-blue-700">
+            <span class="text-xs font-semibold text-blue-200 uppercase tracking-wide">Modo Local</span>
+        </div>
+    </header>
+
+    <main class="flex-1 flex flex-col p-4 max-w-md mx-auto w-full gap-5 overflow-y-auto">
+        <!-- Selector de Servicio -->
+        <div class="flex gap-3 bg-gray-800 p-2 rounded-2xl shadow-inner">
+            <button id="btn-desayuno" class="flex-1 py-4 text-lg font-bold rounded-xl transition-all duration-300 transform active:scale-95" onclick="setService('desayuno')">☕ Desayuno</button>
+            <button id="btn-almuerzo" class="flex-1 py-4 text-lg font-bold rounded-xl transition-all duration-300 transform active:scale-95" onclick="setService('almuerzo')">🍲 Almuerzo</button>
+        </div>
+
+        <!-- Panel de Administración Local -->
+        <div class="flex justify-between items-center bg-gray-800 p-3 rounded-xl border border-gray-700 shadow-lg">
+            <div class="text-sm">
+                Registros de hoy: <span id="contador-hoy" class="font-black text-green-400 text-lg ml-1">0</span>
+            </div>
+            <div class="flex gap-2">
+                <button class="bg-green-600 hover:bg-green-500 text-white text-xs font-bold py-2 px-3 rounded-lg shadow transition-all active:scale-95 flex items-center gap-1" onclick="exportarAsistenciaCSV()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    CSV
+                </button>
+                <button class="bg-red-800 hover:bg-red-700 text-white text-xs font-bold py-2 px-3 rounded-lg shadow transition-all active:scale-95 flex items-center gap-1" onclick="limpiarAsistencias()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Visor de Cámara -->
+        <div class="relative bg-black rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] border-4 border-gray-800 aspect-square flex items-center justify-center">
+            <div id="reader" class="w-full h-full bg-gray-900 flex items-center justify-center">
+                <div class="text-center p-4">
+                    <p class="text-gray-500 text-sm animate-pulse">Iniciando cámara...</p>
+                    <p class="text-xs text-gray-600 mt-2">Requiere permisos y HTTPS</p>
+                </div>
+            </div>
+            
+            <!-- Overlay de carga -->
+            <div id="camera-overlay" class="absolute inset-0 z-20 pointer-events-none hidden bg-black/70 backdrop-blur-sm items-center justify-center flex-col gap-3">
+                <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-white font-bold tracking-widest uppercase text-sm animate-pulse">Procesando</p>
+            </div>
+
+            <!-- Overlay de Feedback (flota sobre la cámara para máxima visibilidad) -->
+            <div id="feedback-card" class="absolute inset-0 z-30 hidden flex-col items-center justify-center p-6 text-center transition-all duration-300 transform scale-95 opacity-0 backdrop-blur-md">
+                <img id="student-photo" src="" alt="Foto" class="w-32 h-32 rounded-full border-4 shadow-2xl mb-4 object-cover hidden">
+                <h2 id="student-name" class="text-3xl font-black mb-1 drop-shadow-lg leading-tight"></h2>
+                <p id="student-course" class="text-xl font-bold opacity-90 mb-4 drop-shadow-md"></p>
+                <div id="feedback-message" class="text-xl font-extrabold px-6 py-3 rounded-2xl w-full shadow-2xl"></div>
+            </div>
+        </div>
+        
+        <p class="text-center text-gray-500 text-xs mt-auto">PWA 100% Local • Datos guardados en el navegador</p>
+    </main>
+
+    <!-- Scripts -->
+    <script src="alumnos.js"></script>
+    <script src="database.js"></script>
+    <script src="scanner.js"></script>
+    <script>
+        // Registrar Service Worker para soporte PWA Offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .catch(err => console.log('Error al registrar Service Worker:', err));
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Archivos del sistema operativo y editores
+.DS_Store
+.vscode/
+.idea/
+
+# Archivos temporales o de entorno (si alguna vez usas Node)
+node_modules/
+.env
+
+# Scripts SQL de estructura (Opcional: puedes comentarlos si quieres que el schema y el mock_data NO se suban a GitHub)
+# schema.sql
+# mock_data.sql

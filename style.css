@@ -1,0 +1,17 @@
+/* Asegurar que el video de la cámara llene el contenedor y respete los bordes curvos */
+#reader video {
+    object-fit: cover !important;
+    border-radius: 1.5rem !important; /* Coincide con rounded-3xl de Tailwind */
+    width: 100% !important;
+    height: 100% !important;
+    transform: scaleX(-1); /* Efecto espejo por defecto para la cámara frontal, aunque configuraremos la trasera */
+}
+
+/* Ocultar scrollbar para experiencia más parecida a una App nativa (PWA) */
+::-webkit-scrollbar {
+    display: none;
+}
+* {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

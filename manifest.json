@@ -1,0 +1,17 @@
+{
+  "name": "Registro Colación",
+  "short_name": "Colación",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#1F2937",
+  "description": "App PWA de lectura QR para control de asistencia de colaciones con soporte Offline.",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Food_Bank_Icon.svg/512px-Food_Bank_Icon.svg.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
